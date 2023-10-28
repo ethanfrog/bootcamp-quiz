@@ -1,8 +1,8 @@
-# <Strong Password Generator>
+# <Coding Boot Camp Quiz>
 
 ## Description
 
-This project is webpage that generates randomized passwords. The user can influence what password they receive by providing inputs on length and character usage.
+This project is a timed quiz intended for coding boot camp students. After the quiz has been taken, the student can choose to upload their score.
 
 ## Installation
 
@@ -12,9 +12,9 @@ N/A
 
 Click the Generate Password button to begin the password making process. When prompted to give input on the password, type your response into the prompt and select OK. Upon finishing the prompts, the new password will be displayed on the webpage.
 
-[Password Generator](https://ethanfrog.github.io/password-generator/)
+[Boot Camp Quiz](https://ethanfrog.github.io/password-generator/)
 
-![Password Generator Webpage](./images/password-generator.png)
+![Boot Camp Quiz Homepage](./images/password-generator.png)
 
 ## Credits
 
