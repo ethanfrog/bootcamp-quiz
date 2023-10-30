@@ -2,7 +2,7 @@ var initialElements = document.querySelector("#initial");
 var quizElements = document.querySelector("#quiz");
 
 var startButton = document.querySelector("#start-button");
-startButton = addEventListener("click", startQuiz);
+startButton.addEventListener("click", startQuiz);
 
 
 
@@ -23,15 +23,14 @@ function startQuiz() {
     initialElements.removeChild(initialElements.firstChild);
   }
 
-  // Append quiz assets to HTML
+  // Append timer asset to HTML
   var timerAsset = document.createElement("p");
+  var secondsLeft = 10;
   quizElements.appendChild(timerAsset);
-
+  timerAsset.textContent = "Time remaining: " + secondsLeft;
 
 
   // Start timer
-  var secondsLeft = 100;
-
   var timerInterval = setInterval(function() {
     secondsLeft--;
     timerAsset.textContent = "Time remaining: " + secondsLeft;
@@ -39,12 +38,6 @@ function startQuiz() {
     if(secondsLeft === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-
-      // End quiz
     }
-
   }, 1000);
-
-  // Create question elements inside of the quiz div element
-
 }
