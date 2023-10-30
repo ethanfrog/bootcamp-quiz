@@ -7,8 +7,13 @@ var timer = document.querySelector("#timer");
 var startButton = document.querySelector("#start-button");
 startButton.addEventListener("click", takeQuiz);
 
-var secondsLeft = 5;
+var secondsLeft = 3;
 var score = 0;
+
+var studentResults = {
+  stuName: "",
+  stuScore: 0
+}
 
 function takeQuiz() {
   renderQuiz();
@@ -62,34 +67,58 @@ function startTimer() {
 }
 
 function showResults() {
-  console.log("showResults is being called");
-
   // Remove quiz elements
   while (quizElements.firstChild) {
     quizElements.removeChild(quizElements.firstChild);
   }
+
   // Render score elements
-  console.log("Displaying score");
   var scoreText = document.createElement("p");
   var initialsPrompt = document.createElement("p");
-  var initialsText = document.createElement("input");
+  var initialsInput = document.createElement("input");
   var submitButton = document.createElement("button");
   
   resultElements.appendChild(scoreText);
   resultElements.appendChild(initialsPrompt);
-  resultElements.appendChild(initialsText);
+  resultElements.appendChild(initialsInput);
   resultElements.appendChild(submitButton);
 
   scoreText.textContent = "Your final score is: " + score;
   initialsPrompt.textContent = "Enter initials:";
   submitButton.textContent = "Submit";
+
+  submitButton.addEventListener("click", function(){
+    // Update student results object, only if initials were put in
+    if (initialsInput.value !== "") {
+      studentResults.stuName = initialsInput.value;
+      studentResults.stuScore = score;
+
+      // Save results to local storage, using initials as a key
+      localStorage.setItem(studentResults.stuName, JSON.stringify(studentResults.stuScore));
+    }
+  })
 }
 
-// var q1 = "How do you write comments in HTML?";
-// var q1Answers = ["<!--Comment-->", "//Comment", "/*Comment*/", "<Comment>"];
+// var q1 = {
+//   qText: "How do you write comments in HTML?",
+//   a1: "<!--Comment-->",
+//   a2: "//Comment",
+//   a3: "/*Comment*/",
+//   a4: "<Comment>"
+// };
 
-// var q2 = "What is the command for changing text color to blue in CSS?";
-// var q2Answers = ["text-color: blue", "color: blue", "color -> blue", "tc: blue"];
+// var q2 = {
+//   qText: "What is the command for changing text color to blue in CSS?",
+//   a1: "text-color: blue",
+//   a2: "color: blue",
+//   a3: "color -> blue",
+//   a4: "tc: blue"
+// };
 
-// var q3 = "What is the keyword for declaring a variable in JavaScript?";
-// var q3Answers = ["variable", "data", "var", "declare"];
+// var q3 = {
+//   qText: "What is the keyword for declaring a variable in JavaScript?",
+//   a1: "variable",
+//   a2: "data",
+//   a3: "var",
+//   a4: "declare"
+// };
