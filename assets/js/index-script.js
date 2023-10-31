@@ -7,96 +7,24 @@ var timer = document.querySelector("#timer");
 var startButton = document.querySelector("#start-button");
 startButton.addEventListener("click", takeQuiz);
 
-var secondsLeft = 3;
+var secondsLeft = 10;
 var score = 0;
+
+var questionText = document.createElement("p");
+var answer1 = document.createElement("button");
+var answer2 = document.createElement("button");
+var answer3 = document.createElement("button");
+var answer4 = document.createElement("button");
+var prevResult = document.createElement("p");
+
+var scoreText = document.createElement("p");
+var initialsPrompt = document.createElement("p");
+var initialsInput = document.createElement("input");
+var submitButton = document.createElement("button");
 
 var studentResults = {
   stuName: "",
   stuScore: 0
-}
-
-function takeQuiz() {
-  renderQuiz();
-  startTimer();
-
-  // Quiz logic goes here
-}
-
-function renderQuiz() {
-  // Remove all child elements from the "initial" div of the HTML
-  while (initialElements.firstChild) {
-    initialElements.removeChild(initialElements.firstChild);
-  }
-  // Render quiz elements
-  var question = document.createElement("p");
-  var answer1 = document.createElement("button");
-  var answer2 = document.createElement("button");
-  var answer3 = document.createElement("button");
-  var answer4 = document.createElement("button");
-  var prevResult = document.createElement("p");
-
-  quizElements.appendChild(question);
-  quizElements.appendChild(answer1);
-  quizElements.appendChild(answer2);
-  quizElements.appendChild(answer3);
-  quizElements.appendChild(answer4);
-  quizElements.appendChild(prevResult);
-
-  question.textContent = "Question goes here";
-  answer1.textContent = "Answer 1";
-  answer2.textContent = "Answer 2";
-  answer3.textContent = "Answer 3";
-  answer4.textContent = "Answer 4";
-  prevResult.textContent = "Correct!";
-}
-
-function startTimer() {
-  timer.textContent = "Time remaining: " + secondsLeft;
-
-  var timerInterval = setInterval(function() {
-    secondsLeft--;
-    timer.textContent = "Time remaining: " + secondsLeft;
-
-    if(secondsLeft === 0) {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-
-      showResults();
-    }
-  }, 1000);
-}
-
-function showResults() {
-  // Remove quiz elements
-  while (quizElements.firstChild) {
-    quizElements.removeChild(quizElements.firstChild);
-  }
-
-  // Render score elements
-  var scoreText = document.createElement("p");
-  var initialsPrompt = document.createElement("p");
-  var initialsInput = document.createElement("input");
-  var submitButton = document.createElement("button");
-  
-  resultElements.appendChild(scoreText);
-  resultElements.appendChild(initialsPrompt);
-  resultElements.appendChild(initialsInput);
-  resultElements.appendChild(submitButton);
-
-  scoreText.textContent = "Your final score is: " + score;
-  initialsPrompt.textContent = "Enter initials:";
-  submitButton.textContent = "Submit";
-
-  submitButton.addEventListener("click", function(){
-    // Update student results object, only if initials were put in
-    if (initialsInput.value !== "") {
-      studentResults.stuName = initialsInput.value;
-      studentResults.stuScore = score;
-
-      // Save results to local storage, using initials as a key
-      localStorage.setItem(studentResults.stuName, JSON.stringify(studentResults.stuScore));
-    }
-  })
 }
 
 var questions = [
@@ -122,3 +50,102 @@ var questions = [
     a4: "declare"
   }
 ]
+
+var currentQuestionIndex;
+
+
+
+function takeQuiz() {
+  startTimer();
+  renderQuiz();
+
+  currentQuestionIndex = 0; 
+  setNextQuestion();
+}
+
+function setNextQuestion() {
+  displayQuestion(questions[currentQuestionIndex])
+}
+
+function displayQuestion(question) {
+  questionText.textContent = question.qText;
+  answer1.textContent = question.a1;
+  answer2.textContent = question.a2;
+  answer3.textContent = question.a3;
+  answer4.textContent = question.a4;
+
+  quizElements.addEventListener("click", checkAnswer)
+}
+
+function checkAnswer() {
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex++;
+    setNextQuestion();
+  }
+  else {
+    showResults();
+  }
+}
+
+
+
+function renderQuiz() {
+  // Remove all child elements from the "initial" div of the HTML
+  while (initialElements.firstChild) {
+    initialElements.removeChild(initialElements.firstChild);
+  }
+
+  // Render quiz elements
+  quizElements.appendChild(questionText);
+  quizElements.appendChild(answer1);
+  quizElements.appendChild(answer2);
+  quizElements.appendChild(answer3);
+  quizElements.appendChild(answer4);
+  quizElements.appendChild(prevResult);
+}
+
+function startTimer() {
+  timer.textContent = "Time remaining: " + secondsLeft;
+
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timer.textContent = "Time remaining: " + secondsLeft;
+
+    if(secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+
+      showResults();
+    }
+  }, 1000);
+}
+
+function showResults() {
+  // Remove quiz elements
+  while (quizElements.firstChild) {
+    quizElements.removeChild(quizElements.firstChild);
+  }
+
+  // Render score elements
+  resultElements.appendChild(scoreText);
+  resultElements.appendChild(initialsPrompt);
+  resultElements.appendChild(initialsInput);
+  resultElements.appendChild(submitButton);
+
+  scoreText.textContent = "Your final score is: " + score;
+  initialsPrompt.textContent = "Enter initials:";
+  submitButton.textContent = "Submit";
+
+  submitButton.addEventListener("click", function(){
+    // Update student results object, only if initials were put in
+    if (initialsInput.value !== "") {
+      studentResults.stuName = initialsInput.value;
+      studentResults.stuScore = score;
+
+      // Save results to local storage, using initials as a key
+      localStorage.setItem(studentResults.stuName, JSON.stringify(studentResults.stuScore));
+
+      initialsInput.value = "";
+    }
+  })
+}
