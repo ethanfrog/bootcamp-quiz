@@ -7,7 +7,7 @@ var timer = document.querySelector("#timer");
 var startButton = document.querySelector("#start-button");
 startButton.addEventListener("click", takeQuiz);
 
-var secondsLeft = 200;
+var secondsLeft = 15;
 var score = 0;
 
 var questionText = document.createElement("p");
@@ -36,21 +36,24 @@ var questions = [
     a1: "<!--Comment-->",
     a2: "//Comment",
     a3: "/*Comment*/",
-    a4: "<Comment>"
+    a4: "<Comment>",
+    correct: 1
   },
   {
     qText: "What is the command for changing text color to blue in CSS?",
     a1: "text-color: blue",
     a2: "color: blue",
     a3: "color -> blue",
-    a4: "tc: blue"
+    a4: "tc: blue",
+    correct: 2
   },
   {
     qText: "What is the keyword for declaring a variable in JavaScript?",
     a1: "variable",
     a2: "data",
     a3: "var",
-    a4: "declare"
+    a4: "declare",
+    correct: 3
   }
 ]
 
@@ -71,6 +74,24 @@ function setNextQuestion() {
 }
 
 function displayQuestion(question) {
+  answer1.classList.remove("correct");
+  answer2.classList.remove("correct");
+  answer3.classList.remove("correct");
+  answer4.classList.remove("correct");
+
+  if (question.correct === 1) {
+    answer1.setAttribute("class", "correct");
+  }
+  else if (question.correct === 2) {
+    answer2.setAttribute("class", "correct");
+  }
+  else if (question.correct === 3) {
+    answer3.setAttribute("class", "correct");
+  }
+  else {
+    answer4.setAttribute("class", "correct");
+  }
+
   questionText.textContent = question.qText;
   answer1.textContent = question.a1;
   answer2.textContent = question.a2;
@@ -80,7 +101,23 @@ function displayQuestion(question) {
   answerButtons.addEventListener("click", checkAnswer)
 }
 
-function checkAnswer() {
+function checkAnswer(event) {
+  // Check if selected answer was right, act accordingly
+  var selectedButton = event.target;
+
+  if (selectedButton.classList.contains("correct")) {
+    score++;
+  }
+  else {
+    if (secondsLeft < 10) {
+      secondsLeft = 0;
+    }
+    else {
+      secondsLeft = secondsLeft - 10;
+    }
+  }
+
+  // Move to next question, or end quiz
   if (currentQuestionIndex < questions.length - 1) {
     currentQuestionIndex++;
     setNextQuestion();
@@ -118,7 +155,8 @@ function startTimer() {
     secondsLeft--;
     timer.textContent = "Time remaining: " + secondsLeft;
 
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
+      timer.textContent = "Time remaining: 0";
       // Stops execution of action at set interval
       clearInterval(timerInterval);
 
