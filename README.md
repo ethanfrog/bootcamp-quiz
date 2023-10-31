@@ -14,7 +14,7 @@ Click the start button to begin the quiz. From there, click whichever answer you
 
 You can also select the View Scores button to see all uploaded scores. From there, you can select the Go Back button to return to the quiz page.
 
-[Boot Camp Quiz](https://ethanfrog.github.io/password-generator/)
+[Boot Camp Quiz](https://ethanfrog.github.io/bootcamp-quiz/)
 
 ![Boot Camp Quiz Homepage](./assets/images/bc-quiz-homepage.png)
 
