@@ -7,14 +7,17 @@ var timer = document.querySelector("#timer");
 var startButton = document.querySelector("#start-button");
 startButton.addEventListener("click", takeQuiz);
 
-var secondsLeft = 10;
+var secondsLeft = 200;
 var score = 0;
 
 var questionText = document.createElement("p");
+
+var answerButtons = document.createElement("div");
 var answer1 = document.createElement("button");
 var answer2 = document.createElement("button");
 var answer3 = document.createElement("button");
 var answer4 = document.createElement("button");
+
 var prevResult = document.createElement("p");
 
 var scoreText = document.createElement("p");
@@ -74,7 +77,7 @@ function displayQuestion(question) {
   answer3.textContent = question.a3;
   answer4.textContent = question.a4;
 
-  quizElements.addEventListener("click", checkAnswer)
+  answerButtons.addEventListener("click", checkAnswer)
 }
 
 function checkAnswer() {
@@ -97,10 +100,14 @@ function renderQuiz() {
 
   // Render quiz elements
   quizElements.appendChild(questionText);
-  quizElements.appendChild(answer1);
-  quizElements.appendChild(answer2);
-  quizElements.appendChild(answer3);
-  quizElements.appendChild(answer4);
+
+  quizElements.appendChild(answerButtons);
+
+  answerButtons.appendChild(answer1);
+  answerButtons.appendChild(answer2);
+  answerButtons.appendChild(answer3);
+  answerButtons.appendChild(answer4);
+
   quizElements.appendChild(prevResult);
 }
 
