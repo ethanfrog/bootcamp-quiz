@@ -7,7 +7,7 @@ var timer = document.querySelector("#timer");
 var startButton = document.querySelector("#start-button");
 startButton.addEventListener("click", takeQuiz);
 
-var secondsLeft = 15;
+var secondsLeft = 100;
 var score = 0;
 
 var questionText = document.createElement("p");
@@ -18,7 +18,7 @@ var answer2 = document.createElement("button");
 var answer3 = document.createElement("button");
 var answer4 = document.createElement("button");
 
-var prevResult = document.createElement("p");
+var questionResult = document.createElement("p");
 
 var scoreText = document.createElement("p");
 var initialsPrompt = document.createElement("p");
@@ -57,7 +57,7 @@ var questions = [
   }
 ]
 
-var currentQuestionIndex;
+var currentQuestionIndex = 0;
 
 
 
@@ -65,15 +65,10 @@ function takeQuiz() {
   startTimer();
   renderQuiz();
 
-  currentQuestionIndex = 0; 
-  setNextQuestion();
+  setNextQuestion(questions[currentQuestionIndex]);
 }
 
-function setNextQuestion() {
-  displayQuestion(questions[currentQuestionIndex])
-}
-
-function displayQuestion(question) {
+function setNextQuestion(question) {
   answer1.classList.remove("correct");
   answer2.classList.remove("correct");
   answer3.classList.remove("correct");
@@ -106,9 +101,11 @@ function checkAnswer(event) {
   var selectedButton = event.target;
 
   if (selectedButton.classList.contains("correct")) {
+    questionResult.textContent = "Correct!";
     score++;
   }
   else {
+    questionResult.textContent = "Wrong!";
     if (secondsLeft < 10) {
       secondsLeft = 0;
     }
@@ -120,7 +117,7 @@ function checkAnswer(event) {
   // Move to next question, or end quiz
   if (currentQuestionIndex < questions.length - 1) {
     currentQuestionIndex++;
-    setNextQuestion();
+    setNextQuestion(questions[currentQuestionIndex]);
   }
   else {
     showResults();
@@ -145,7 +142,7 @@ function renderQuiz() {
   answerButtons.appendChild(answer3);
   answerButtons.appendChild(answer4);
 
-  quizElements.appendChild(prevResult);
+  quizElements.appendChild(questionResult);
 }
 
 function startTimer() {
@@ -166,6 +163,7 @@ function startTimer() {
 }
 
 function showResults() {
+  secondsLeft = 0;
   // Remove quiz elements
   while (quizElements.firstChild) {
     quizElements.removeChild(quizElements.firstChild);

@@ -13,5 +13,5 @@ for (i = 0; i < localStorage.length; i++) {
   newScore = document.createElement("p");
   scoreElements.appendChild(newScore);
 
-  newScore.textContent = stuName + ", " + stuScore;
+  newScore.textContent = stuName + ": " + stuScore;
 }

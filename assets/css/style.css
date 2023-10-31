@@ -4,10 +4,6 @@
     font-family: 'Verdana', 'Helvetica', 'sans-serif';
 }
 
-div {
-    padding: 20px;
-}
-
 h1 {
     font-size: 60px;
     padding-bottom: 10px;
@@ -25,8 +21,4 @@ p {
 button {
     background-color: rgb(40,40,80);
     padding: 10px;
-}
-
-input {
-    padding: 10px 0x;
 }
