@@ -10,15 +10,17 @@ N/A
 
 ## Usage
 
-Click the Generate Password button to begin the password making process. When prompted to give input on the password, type your response into the prompt and select OK. Upon finishing the prompts, the new password will be displayed on the webpage.
+Click the start button to begin the quiz. From there, click whichever answer you think is correct to progress to the next question. When all questions have been answered or time has run out, the quiz ends. You can then enter your initials and click the Submit button to upload your score to the website.
+
+You can also select the View Scores button to see all uploaded scores. From there, you can select the Go Back button to return to the quiz page.
 
 [Boot Camp Quiz](https://ethanfrog.github.io/password-generator/)
 
-![Boot Camp Quiz Homepage](./images/password-generator.png)
+![Boot Camp Quiz Homepage](./assets/images/bc-quiz-homepage.png)
 
 ## Credits
 
-RNG function provided by MDN Web Docs.
+CSS reset file provided by Michigan State University.
 
 ## License
 

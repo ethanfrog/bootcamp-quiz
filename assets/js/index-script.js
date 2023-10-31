@@ -99,26 +99,26 @@ function showResults() {
   })
 }
 
-// var q1 = {
-//   qText: "How do you write comments in HTML?",
-//   a1: "<!--Comment-->",
-//   a2: "//Comment",
-//   a3: "/*Comment*/",
-//   a4: "<Comment>"
-// };
-
-// var q2 = {
-//   qText: "What is the command for changing text color to blue in CSS?",
-//   a1: "text-color: blue",
-//   a2: "color: blue",
-//   a3: "color -> blue",
-//   a4: "tc: blue"
-// };
-
-// var q3 = {
-//   qText: "What is the keyword for declaring a variable in JavaScript?",
-//   a1: "variable",
-//   a2: "data",
-//   a3: "var",
-//   a4: "declare"
-// };
+var questions = [
+  {
+    qText: "How do you write comments in HTML?",
+    a1: "<!--Comment-->",
+    a2: "//Comment",
+    a3: "/*Comment*/",
+    a4: "<Comment>"
+  },
+  {
+    qText: "What is the command for changing text color to blue in CSS?",
+    a1: "text-color: blue",
+    a2: "color: blue",
+    a3: "color -> blue",
+    a4: "tc: blue"
+  },
+  {
+    qText: "What is the keyword for declaring a variable in JavaScript?",
+    a1: "variable",
+    a2: "data",
+    a3: "var",
+    a4: "declare"
+  }
+]
